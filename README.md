@@ -515,7 +515,7 @@ A plugin is basically just a module that provides a `init/2` callback.
 
 ```elixir
 defmodule CredoDemoPlugin do
-  def init(exec, params) do
+  def init(exec) do
     # but what do we do here??
     exec
   end
@@ -530,7 +530,7 @@ defmodule CredoDemoPlugin do
 
   import Credo.Plugin
 
-  def init(exec, _params) do
+  def init(exec) do
     exec
     |> register_default_config(@config_file)
     |> register_command("demo", CredoDemoPlugin.DemoCommand)
@@ -550,7 +550,7 @@ Commands are just modules with a call function and adding new commands is easy.
 defmodule CredoDemoPlugin do
   import Credo.Plugin
 
-  def init(exec, _params) do
+  def init(exec) do
     register_command(exec, "demo", CredoDemoPlugin.DemoCommand)
   end
 end
@@ -586,7 +586,7 @@ Since commands are just modules with a call function, overriding existing comman
 defmodule CredoDemoPlugin do
   import Credo.Plugin
 
-  def init(exec, _params) do
+  def init(exec) do
     register_command(exec, "explain", CredoDemoPlugin.MyBetterExplainCommand)
   end
 end
@@ -602,7 +602,7 @@ Plugins can add default configuration to Credo.
 defmodule CredoDemoPlugin do
   import Credo.Plugin
 
-  def init(exec, _params) do
+  def init(exec) do
     register_default_config(exec, @config_file)
   end
 end
@@ -627,7 +627,7 @@ defmodule CredoDemoPlugin do
 
   import Credo.Plugin
 
-  def init(exec, _params) do
+  def init(exec) do
     register_default_config(exec, @config_file)
   end
 end
@@ -677,7 +677,7 @@ Prepending or appending tasks to these steps is easy:
 defmodule CredoDemoPlugin do
   import Credo.Plugin
 
-  def init(exec, _params) do
+  def init(exec) do
     prepend_task(exec, :set_default_command, CredoDemoPlugin.SetDemoAsDefaultCommand)
   end
 end
@@ -723,7 +723,7 @@ Registering a custom CLI switch is easy:
 defmodule CredoDemoPlugin do
   import Credo.Plugin
 
-  def init(exec, _params) do
+  def init(exec) do
     exec
     |> register_cli_switch(:castle, :string, :X)
     |> append_task(:convert_cli_options_to_config, CredoDemoPlugin.ConvertCliSwitchesToPluginParams)
@@ -739,7 +739,7 @@ Use the plugin's params to store the param information, by first registering a n
 defmodule CredoDemoPlugin do
   import Credo.Plugin
 
-  def init(exec, _params) do
+  def init(exec) do
     exec
     |> register_cli_switch(:castle, :string, :X)
     |> append_task(:convert_cli_options_to_config, CredoDemoPlugin.ConvertCliSwitchesToPluginParams)
